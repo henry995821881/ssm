@@ -45,6 +45,15 @@ public class Dt0001Action {
 			
 		}*/
 		
+		/*CacheManager cacheManager = CacheManager.getInstance();
+		String[] cacheNames = cacheManager.getCacheNames();
+		for (String string : cacheNames) {
+			
+			System.out.println(" cacheName--->"+string);
+			
+		}
+		*/
+		
 		List<DaiDhpTaisyosya> dhpTaisyosyaList = dtService.getDhpTaisyosyaList();
 
 		model.addAttribute("dhpTaisyosyaList", dhpTaisyosyaList);
