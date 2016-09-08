@@ -40,7 +40,7 @@ public class Tm {
 		
     	   return "tm/tmMs22";
        }
-	
+	//springmvc 通过jackson 把 User转换成json数据返回
 	@RequestMapping(value="test1/{name}")
 	@ResponseBody
 	public User testResponsebody(@PathVariable String name){
