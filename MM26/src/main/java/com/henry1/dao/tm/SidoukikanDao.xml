@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<!-- 为这个mapper指定一个唯一的namespace，namespace的值习惯上设置成包名+sql映射文件名，这样就能够保证namespace的值是唯一的 
+	例如namespace="me.gacl.mapping.userMapper"就是me.gacl.mapping(包名)+userMapper(userMapper.xml文件去除后缀) -->
+<mapper namespace="com.henry1.dao.tm.SidoukikanDao">
+
+
+	
+<!-- 	使用ehcache默认的缓存参数。而不是myCache ehcache.xml文件
+	以下两个cache标签二选一,第一个可以输出日志,
+	第二个不输出日志 只要在对应的mapper配置文件中加入cache 标签即可  -->
+<!--  cache 是根据ehcache配置文件中的默认配置 clone 一个cache cache的id是mapper的namespace，
+其实源码就是cache = EhcacheCache.createCacheManager().cacheManager.addCache(namespace)-->
+	 <cache  type="org.mybatis.caches.ehcache.LoggingEhcache"/>
+	<!-- <cache type="org.mybatis.caches.ehcache.EhcacheCache"/> -->
+
+
+<select  id="getSidoukikanList" resultType="com.henry1.bean.tm.SidoukikanData">
+SELECT 
+    A.SK_CD as skCd, 
+    A.SK_NM skNm, 
+    B.NM AS AREA, 
+    A.MAX_NINZU as maxNinzu, 
+    A.GAIBU_FLG as gaibuFlg, 
+    A.COM_SK_CD as comSkCd
+FROM 
+    SIDOUKIKAN A 
+LEFT JOIN 
+    AREA B 
+    ON 
+    A.AREA = B.CD 
+ORDER BY 
+    skCd ASC
+</select>
+
+<select id="getSidoukikanDataById" parameterType="string"  resultType="com.henry1.bean.tm.SidoukikanData" >
+SELECT 
+    A.SK_CD as skCd, 
+    A.SK_NM skNm, 
+    B.NM AS AREA, 
+    A.MAX_NINZU as maxNinzu, 
+    A.GAIBU_FLG as gaibuFlg,
+    A.COM_SK_CD as comSkCd,
+    A.yubin_no as yubinNo,
+    A.address ,
+    A.address2,
+    A.tel_no as telNo
+FROM 
+    SIDOUKIKAN A 
+LEFT JOIN 
+    AREA B 
+    ON 
+    A.AREA = B.CD 
+where A.SK_CD =#{skCd}
+
+</select>
+
+</mapper>
