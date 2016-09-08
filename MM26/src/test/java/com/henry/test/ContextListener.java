@@ -39,7 +39,7 @@ public class ContextListener implements ServletContextListener {
 		System.out.println("____________________________________________________");
 		//事务拦截器
 		TransactionInterceptor txAdvice =(TransactionInterceptor) ac.getBean("txAdvice");
-		//aop拦截器
+			//log拦截器
 		LogInterceptor logInterceptor = (LogInterceptor) ac.getBean("logInterceptor");
 
 	}
