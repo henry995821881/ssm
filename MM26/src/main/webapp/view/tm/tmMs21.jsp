@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
+<%@taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt"%>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
@@ -61,11 +62,45 @@ td {
 			</div>
 		</div>
 
-		<a type="button" href="test1/zhang"  class="btn btn-default">追加</a>
+		<a type="button" href="test1/zhang" class="btn btn-default">追加</a>
 
 	</div>
-	
+	<form action="test2" method="post">
+		<input type="hidden" id="ddd" name="date">
+		<input type="hidden" name="dollar" value="20.01">
+		<input type="submit" value="submit">
+	</form>
 
+	<%-- <fmt:formatDate  value="java日期" pattern="yyyy-MM-dd HH:mm:ss"/> --%>
+	<script type="text/javascript">
+		Date.prototype.Format = function(fmt) { //author: meizz   
+			var o = {
+				"M+" : this.getMonth() + 1, //月?   
+				"d+" : this.getDate(), //日   
+				"h+" : this.getHours(), //小?   
+				"m+" : this.getMinutes(), //分   
+				"s+" : this.getSeconds(), //秒   
+				"q+" : Math.floor((this.getMonth() + 3) / 3), //季度   
+				"S" : this.getMilliseconds()
+			//毫秒   
+			};
+			if (/(y+)/.test(fmt))
+				fmt = fmt.replace(RegExp.$1, (this.getFullYear() + "")
+						.substr(4 - RegExp.$1.length));
+			for ( var k in o)
+				if (new RegExp("(" + k + ")").test(fmt))
+					fmt = fmt.replace(RegExp.$1,
+							(RegExp.$1.length == 1) ? (o[k]) : (("00" + o[k])
+									.substr(("" + o[k]).length)));
+			return fmt;
+		}
+
+		//yyyy-MM-dd
+		var d = new Date();
+
+		$("#ddd").val(d.Format("yyyy-MM-dd hh:mm:ss"));
+		//$("#ddd")[0].value=d;
+	</script>
 
 </body>
 </html>

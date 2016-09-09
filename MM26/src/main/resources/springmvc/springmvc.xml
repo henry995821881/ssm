@@ -68,8 +68,10 @@
 		<property name="converters">
 			<list>
 				<!-- 转换器列表 -->
-				
-				<bean class="com.henry.ssm.controller.converter.CustomDateConverter" />
+				<!-- date转换器 -->
+				 <bean class="com.henry.ssm.controller.converter.CustomDateConverter" /> 
+				 <!-- float转换器 -->
+<!--  <bean class="com.henry.ssm.controller.converter.CustomFloatConverter"/> -->
 			</list>
 		</property>
 	</bean>

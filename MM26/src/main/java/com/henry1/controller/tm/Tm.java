@@ -1,5 +1,6 @@
 package com.henry1.controller.tm;
 
+import java.util.Date;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -7,6 +8,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.henry.ssm.po.User;
@@ -51,6 +53,14 @@ public class Tm {
 		user.setSex("male");
 		user.setId(1);	
 		return user;
+	}
+	
+	//自定义date转换器 ，float转换器
+	@RequestMapping(value="test2" ,method=RequestMethod.POST)
+	public String dateConveter(Date date,Float dollar){
+		
+		System.out.println(date);
+		return "tm/tmMs22";
 	}
 	
 }
