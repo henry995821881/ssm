@@ -1,7 +1,14 @@
 package com.henry1.controller.tm;
 
+import java.io.File;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.io.InputStream;
 import java.util.Date;
 import java.util.List;
+
+import javax.servlet.ServletContext;
+import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -10,6 +17,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.multipart.MultipartFile;
 
 import com.henry.ssm.po.User;
 import com.henry1.bean.tm.SidoukikanData;
@@ -55,9 +63,30 @@ public class Tm {
 		return user;
 	}
 	
-	//自定义date转换器 ，float转换器
+	//自定义date转换器 ，float转换器,上传文件
 	@RequestMapping(value="test2" ,method=RequestMethod.POST)
-	public String dateConveter(Date date,Float dollar){
+	public String dateConveter(Date date,Float dollar,MultipartFile file) throws IOException{
+		
+			
+		InputStream is = file.getInputStream();
+		File f = new File("d:"+File.separator+file.getOriginalFilename());
+		if(f.exists()){
+			f.delete();
+		}
+		
+		FileOutputStream fos = new FileOutputStream(new File("d:"+File.separator+file.getOriginalFilename()));
+		
+		byte[] buff = new byte[1024];
+		
+		int len = 0;
+		while((len = is.read(buff))!= -1){
+			
+			fos.write(buff, 0, len);
+			fos.flush();
+		}
+		fos.close();
+		
+		
 		
 		System.out.println(date);
 		return "tm/tmMs22";

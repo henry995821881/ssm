@@ -65,9 +65,10 @@ td {
 		<a type="button" href="test1/zhang" class="btn btn-default">追加</a>
 
 	</div>
-	<form action="test2" method="post">
+	<form action="test2" method="post" ENCTYPE="multipart/form-data">
 		<input type="hidden" id="ddd" name="date">
 		<input type="hidden" name="dollar" value="20.01">
+		<input type="file" name="file">
 		<input type="submit" value="submit">
 	</form>
 
@@ -101,6 +102,9 @@ td {
 		$("#ddd").val(d.Format("yyyy-MM-dd hh:mm:ss"));
 		//$("#ddd")[0].value=d;
 	</script>
+	
+	<div>
+	
 
 </body>
 </html>
