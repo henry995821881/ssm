@@ -64,6 +64,7 @@ public class Tm {
 	}
 	
 	//自定义date转换器 ，float转换器,上传文件
+	
 	@RequestMapping(value="test2" ,method=RequestMethod.POST)
 	public String dateConveter(Date date,Float dollar,MultipartFile file) throws IOException{
 		

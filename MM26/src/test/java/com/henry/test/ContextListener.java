@@ -4,7 +4,10 @@ import javax.servlet.ServletContext;
 import javax.servlet.ServletContextEvent;
 import javax.servlet.ServletContextListener;
 
+import org.quartz.SchedulerException;
+import org.quartz.impl.StdScheduler;
 import org.springframework.context.annotation.Bean;
+import org.springframework.scheduling.quartz.SchedulerFactoryBean;
 import org.springframework.transaction.interceptor.TransactionInterceptor;
 import org.springframework.web.context.WebApplicationContext;
 import org.springframework.web.context.support.WebApplicationContextUtils;
@@ -35,6 +38,16 @@ public class ContextListener implements ServletContextListener {
 			System.out.println(string);
 
 
+		}
+		
+		
+		//启动job
+		StdScheduler s = (StdScheduler) ac.getBean("startQuertz");
+		try {
+			s.start();
+		} catch (SchedulerException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
 		}
 		System.out.println("____________________________________________________");
 		//事务拦截器

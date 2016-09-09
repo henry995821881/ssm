@@ -62,6 +62,7 @@ td {
 			</div>
 		</div>
 
+	<span>web根路径：  ${pageContext.request.contextPath}</span>
 		<a type="button" href="test1/zhang" class="btn btn-default">追加</a>
 
 	</div>
@@ -103,8 +104,7 @@ td {
 		//$("#ddd")[0].value=d;
 	</script>
 	
-	<div>
-	
+
 
 </body>
 </html>

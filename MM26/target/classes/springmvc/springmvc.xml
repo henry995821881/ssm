@@ -58,7 +58,7 @@
 	<!-- 注入转换器 和校验器 -->
 	<!-- <mvc:annotation-driven></mvc:annotation-driven> -->
 	<mvc:annotation-driven conversion-service="conversionSerice"
-		validator="validator">
+		validator="validator"  >
 	</mvc:annotation-driven>
 
 	<!-- 自定义参数绑定 添加自定义convert转换器 -->
@@ -93,8 +93,8 @@
 
 
 
-
-	<!-- 校验器 -->
+<!-- JSR-303规范的 Validation -->
+	<!-- Hibernate校验器就是实现了JSR-303规范的  -->
 	<bean id="validator"
 		class="org.springframework.validation.beanvalidation.LocalValidatorFactoryBean">
 		<!-- 校验器 -->
