@@ -29,7 +29,7 @@
 
 		<dependency>
 			<groupId>org.slf4j</groupId>
-			<artifactId>hibernate.cfg.xml</artifactId>
+			<artifactId>slf4j-api</artifactId>
 			<version>1.7.21</version>
 		</dependency>
 
