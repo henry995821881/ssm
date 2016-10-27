@@ -11,7 +11,14 @@
 	第二个不输出日志 只要在对应的mapper配置文件中加入cache 标签即可  -->
 <!--  cache 是根据ehcache配置文件中的默认配置 clone 一个cache cache的id是mapper的namespace，
 其实源码就是cache = EhcacheCache.createCacheManager().cacheManager.addCache(namespace)-->
-	 <cache  type="org.mybatis.caches.ehcache.LoggingEhcache"/>
+	 <cache  type="org.mybatis.caches.ehcache.LoggingEhcache">
+
+                    <property name="timeToIdleSeconds" value="3600"/><!--1 hour-->
+		    <property name="timeToLiveSeconds" value="3600"/><!--1 hour-->
+		    <property name="maxEntriesLocalHeap" value="1000"/>
+		    <property name="maxEntriesLocalDisk" value="10000000"/>
+		    <property name="memoryStoreEvictionPolicy" value="LRU"/>
+          </cache>
 	<!-- <cache type="org.mybatis.caches.ehcache.EhcacheCache"/> -->
 
 
