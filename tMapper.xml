@@ -1,0 +1,178 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="jp.co.intage.jrtours.ep.plan.EscortSupplierListMapper">
+
+    <resultMap type="jp.co.intage.jrtours.ep.plan.EscortSupplierListDetail" id="result" autoMapping="true">
+		<result column="ES_INSIDE_SORTING_SUPPLIER_NO" property="sortingSupplierNo" />				<!-- 施設管理番号 -->
+		<result column="ES_ESCORT_SUPPLIER_CD" property="supplierCd" />								<!-- 代表施設コード -->
+		<result column="ES_SUPPLIER_CONTRACT_DIV" property="supplierContractDiv" />					<!-- 施設契約区分 -->
+		<result column="ES_JTT_CONTRACT_FLG" property="jttContractFlg" />							<!-- JTT契約フラグ -->
+		<result column="ES_JTB_CONTRACT_FLG" property="jtbContractFlg" />							<!-- JTB契約フラグ -->
+		<result column="ES_JR_CONTRACT_FLG" property="jrContractFlg" />								<!-- JR契約フラグ -->
+		<result column="ES_SUPPLIER_TYPE" property="supplierType" />								<!-- エスコート施設タイプ -->
+		<result column="SUPPLIER_NAME_KANJI" property="supplierName" />								<!-- サプライヤ名称（漢字正式） -->
+		<result column="UPDATE_DATETIME" property="updateDateTime" />								<!-- 更新日時 -->
+		<result column="UPDATE_USER" property="updateUser" />										<!-- 更新者 -->
+		<result column="STAY_SUPPLIER_CD" property="staySupplierCd" />								<!-- 宿泊施設の設コード-->
+		<result column="SIGHT_SUPPLIER_CD" property="sightSupplierCd" />							<!-- 観光施設の設コード -->
+		<result column="VEHICLE_SUPPLIER_CD" property="vehicleSupplierCd" />						<!-- 船車施設の設コード -->
+		<result column="VEHICLE_SUPPLIER_CD2" property="vehicleSupplierCd2" />						<!-- 船車施設の設コード -->
+    </resultMap>
+    
+    <sql id="fromSql">
+		FROM
+			ES_M_SUPPLIER
+		JOIN (
+			SELECT
+				ES_CODE,
+				ES_DIVISION
+			FROM
+				ES_M_CODE
+		) ES_M_CODE ON ES_DIVISION = '3731'	AND ES_SUPPLIER_TYPE = ES_CODE
+		LEFT JOIN (
+			SELECT DISTINCT
+				SUPPLIER_CD AS STAY_SUPPLIER_CD
+			FROM
+				TRF_T_VIEW_STAY
+		) STAY ON ES_M_SUPPLIER.ES_ESCORT_SUPPLIER_CD = STAY_SUPPLIER_CD
+		LEFT JOIN (
+			SELECT DISTINCT
+				SUPPLIER_CD AS SIGHT_SUPPLIER_CD
+			FROM
+				TRF_T_VIEW_SIGHT
+		) SIGHT ON ES_M_SUPPLIER.ES_ESCORT_SUPPLIER_CD = SIGHT_SUPPLIER_CD
+		LEFT JOIN (
+			SELECT DISTINCT
+				SUPPLIER_CD AS VEHICLE_SUPPLIER_CD
+			FROM
+				TRF_T_VIEW_VEHICLE
+			WHERE
+				TICKET_CD = '1'
+		) VEHICLE ON ES_M_SUPPLIER.ES_ESCORT_SUPPLIER_CD = VEHICLE_SUPPLIER_CD
+		LEFT JOIN (
+			SELECT DISTINCT
+				SUPPLIER_CD AS VEHICLE_SUPPLIER_CD2
+			FROM
+				TRF_T_VIEW_VEHICLE
+			WHERE
+				TICKET_CD = '2'
+		) VEHICLE2 ON ES_M_SUPPLIER.ES_ESCORT_SUPPLIER_CD = VEHICLE_SUPPLIER_CD2
+    </sql>
+    
+    <sql id="whereSql">
+        <where>
+        
+        DEL_FLG = "0"
+        
+        <!-- 仕入個所 -->
+        <if test="@jp.co.intage.shiireweb.common.utils.CommonUtil@strIsNull(formBean.branchCd) == false">
+            AND ES_BRANCH_CD = #{formBean.branchCd}
+        </if>
+        
+        <!-- 都道府県 -->
+		<if test="@jp.co.intage.shiireweb.common.utils.CommonUtil@strIsNull(formBean.supplierPrefecturesCd) == false">
+			AND SUPPLIER_PREFECTURES_CD = #{formBean.supplierPrefecturesCd}
+        </if>
+ 		
+        <!-- 代表施設コード -->
+        <if test="@jp.co.intage.shiireweb.common.utils.CommonUtil@strIsNull(formBean.supplierCd) == false">
+			AND ES_ESCORT_SUPPLIER_CD LIKE CONCAT('\\', #{formBean.supplierCd}, '%')
+        </if>
+        
+        <!-- 施設名 -->
+         <if test="@jp.co.intage.shiireweb.common.utils.CommonUtil@strIsNull(formBean.supplierName) == false">
+			AND SUPPLIER_NAME_KANJI LIKE CONCAT('%\\', #{formBean.supplierName}, '%')
+         </if>
+         
+        <!-- 施設種別 -->
+         <if test="@jp.co.intage.shiireweb.common.utils.CommonUtil@strIsNull(formBean.contract) == false" >
+			AND (CASE WHEN ES_SUPPLIER_CONTRACT_DIV = '1' AND ES_JTT_CONTRACT_FLG = '1' THEN '1'																																		
+				WHEN ES_SUPPLIER_CONTRACT_DIV = '1' AND ES_JTB_CONTRACT_FLG = '1' THEN '2'																																
+				WHEN ES_SUPPLIER_CONTRACT_DIV = '1' AND ES_JR_CONTRACT_FLG = '1' THEN '3'
+				ELSE '4' END) = #{formBean.contract}
+         </if>
+        
+        <!-- 施設タイプ -->
+         <if test="@jp.co.intage.shiireweb.common.utils.CommonUtil@strIsNull(formBean.supplierType) == false" >
+			AND ES_SUPPLIER_TYPE = #{formBean.supplierType}
+         </if>
+        </where>
+    </sql>
+    
+    <sql id="sortSql">
+    	ORDER BY
+        <if test="@jp.co.intage.shiireweb.common.utils.CommonUtil@strIsNull(formBean.orderInfo.column) == false
+                  and @jp.co.intage.shiireweb.common.utils.CommonUtil@strIsNull(formBean.orderInfo.sortType) == false">
+            <choose>
+                <!-- 施設コード -->
+                <when test="formBean.orderInfo.column == 'ES_ESCORT_SUPPLIER_CD'">
+                    ES_ESCORT_SUPPLIER_CD
+                </when>
+                <!-- 施設タイプ -->
+                <when test="formBean.orderInfo.column == 'ES_SUPPLIER_TYPE'">
+                    ES_SUPPLIER_TYPE
+                </when>
+                <!-- 最終更新者 -->
+                <when test="formBean.orderInfo.column == 'UPDATE_USER'">
+                    UPDATE_USER
+                </when>
+                <!-- 最終更新日 -->
+                <when test="formBean.orderInfo.column == 'UPDATE_DATETIME'">
+                    UPDATE_DATETIME
+                </when>
+            </choose>
+            <if test="formBean.orderInfo.sortType == 'DESC'">
+                DESC
+            </if>
+            <if test="formBean.orderInfo.sortType == 'ASC'">
+                ASC
+            </if>
+        </if>
+        <if test="@jp.co.intage.shiireweb.common.utils.CommonUtil@strIsNull(formBean.orderInfo.column) == true">
+			ES_ESCORT_SUPPLIER_CD
+        </if>
+    </sql>
+    
+    <select id="getIntakeSupplierCount" resultType="int">
+        SELECT
+            COUNT(1)
+        FROM
+            ES_T_INTAKE_SUPPLIER;
+    </select>
+    
+    <select id="getEscortSupplierListCount" resultType="int">
+        SELECT
+            COUNT(1)
+        <include refid="fromSql"/>
+        <!-- 検索条件 -->
+ 		<include refid="whereSql"/>
+        ;
+    </select>
+    
+     <select id="getEscortSupplierList" resultMap="result">
+        SELECT
+			 ES_INSIDE_SORTING_SUPPLIER_NO									<!-- 施設管理番号 -->
+            ,ES_ESCORT_SUPPLIER_CD											<!-- 代表施設コード -->
+            ,ES_SUPPLIER_CONTRACT_DIV										<!-- 施設契約区分 -->
+            ,ES_JTT_CONTRACT_FLG											<!-- JTT契約フラグ -->
+            ,ES_JTB_CONTRACT_FLG											<!-- JTB契約フラグ -->
+            ,ES_JR_CONTRACT_FLG												<!-- JR契約フラグ -->
+            ,ES_SUPPLIER_TYPE												<!-- エスコート施設タイプ -->
+            ,SUPPLIER_NAME_KANJI											<!-- サプライヤ名称（漢字正式） -->
+            ,DATE_FORMAT(UPDATE_DATETIME,'%Y%m%d') AS UPDATE_DATETIME		<!-- 更新日時 -->
+            ,UPDATE_USER													<!-- 更新者 -->
+            ,STAY_SUPPLIER_CD												<!-- 宿泊施設の設コード-->
+            ,SIGHT_SUPPLIER_CD												<!-- 観光施設の設コード -->
+            ,VEHICLE_SUPPLIER_CD											<!-- 船車施設の設コード -->
+            ,VEHICLE_SUPPLIER_CD2											<!-- 船車施設の設コード -->
+ 		<include refid="fromSql"/>
+        <!-- 検索条件 -->
+ 		<include refid="whereSql"/>
+        <!-- ソート順 -->
+		<include refid="sortSql"/>
+		<!-- 行数選択 -->
+		LIMIT #{formBean.limitCount} OFFSET #{formBean.limitStart}
+        ;
+    </select>
+</mapper>
