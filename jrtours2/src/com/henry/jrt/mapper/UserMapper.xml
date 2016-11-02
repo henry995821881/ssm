@@ -3,42 +3,45 @@
 
 <mapper namespace="com.henry.jrt.mapper.UserMapper">
 
-<resultMap type="com.henry.jrt.bean.UserInfo" id="resultUser">
-                 
- <result column="description" property="desc" jdbcType="VARCHAR"/>
- <result column="email" property="email" jdbcType="VARCHAR"/>
- <result column="user_name" property="userName" jdbcType="VARCHAR"/>
- <result column="nick_name" property="nickName" jdbcType="VARCHAR"/>
- <result column="user_pw" property="password" jdbcType="VARCHAR"/>
- <result column="authority" property="authority" jdbcType="VARCHAR"/>
- <result column="enable" property="enable" jdbcType="CHAR"/>
- <result column="locked" property="locked" jdbcType="CHAR"/>
- <!-- attempts -->
- <result column="last_attempts_time" property="lastAttemptsTime" jdbcType="DATETIME"/>
- <result column="error_attempts_num" property="errorAttemptsNum" jdbcType="INT"/>
- 
-</resultMap>
+	<resultMap type="com.henry.jrt.bean.UserInfo" id="resultUser">
 
-<select id="getUserByName" parameterType="java.lang.String" resultMap="resultUser">
+		<result column="description" property="desc" jdbcType="VARCHAR" />
+		<result column="email" property="email" jdbcType="VARCHAR" />
+		<result column="user_name" property="userName" jdbcType="VARCHAR" />
+		<result column="nick_name" property="nickName" jdbcType="VARCHAR" />
+		<result column="user_pw" property="password" jdbcType="VARCHAR" />
+		<result column="authority" property="authority" jdbcType="VARCHAR" />
+		<result column="enable" property="enable" jdbcType="CHAR" />
+		<result column="locked" property="locked" jdbcType="CHAR" />
+		<!-- attempts -->
+		<result column="last_attempts_time" property="lastAttemptsTime"
+			jdbcType="DATE" />
+		<result column="error_attempts_num" property="errorAttemptsNum"
+			jdbcType="INTEGER" />
 
-SELECT
-	u.description,
-	u.email,
-	u.user_name,
-	u.nick_name,
-	u.user_pw,
-    u.enable,
-    u.locked,
-	a.authority,
-  p.last_attempts_time,
-  p.error_attempts_num
-FROM
-	t_users u
-LEFT JOIN t_authoritie a ON u.user_name = a.user_name
-LEFT JOIN t_users_attempts p ON p.user_name = u.user_name
-WHERE
-	u.user_name =#{userName}
+	</resultMap>
 
-</select>
+	<select id="getUserByName" parameterType="java.lang.String"
+		resultMap="resultUser">
+
+		SELECT
+		u.description,
+		u.email,
+		u.user_name,
+		u.nick_name,
+		u.user_pw,
+		u.enable,
+		u.locked,
+		a.authority,
+		p.last_attempts_time,
+		p.error_attempts_num
+		FROM
+		t_users u
+		LEFT JOIN t_authoritie a ON u.user_name = a.user_name
+		LEFT JOIN t_users_attempts p ON p.user_name = u.user_name
+		WHERE
+		u.user_name =#{userName}
+
+	</select>
 
 </mapper>
