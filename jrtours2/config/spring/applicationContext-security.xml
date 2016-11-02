@@ -127,6 +127,7 @@
 				<beans:bean id="securityContextLogoutHandler"
 					class="org.springframework.security.web.authentication.logout.SecurityContextLogoutHandler" />
 
+                 <!-- 自定义handler -->
 				<beans:bean id="customLogoutSuccessHandler"
 					class="com.henry.jrt.security.CustomLogoutHandler" />
 			</beans:array>
