@@ -53,6 +53,7 @@
 
 		<beans:property name="filterProcessesUrl" value="/checklogin" />
 		<beans:property name="authenticationManager" ref="authenticationManager" />
+		<!-- 指定修改表单对应的name属性，默认是j_username,j_password -->
 		<beans:property name="usernameParameter" value="username" />
 		<beans:property name="passwordParameter" value="password" />
 		<beans:property name="authenticationSuccessHandler">
