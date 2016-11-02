@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.henry.jrt.mapper.UserMapper">
+
+<resultMap type="com.henry.jrt.bean.UserInfo" id="resultUser">
+                 
+ <result column="description" property="desc" jdbcType="VARCHAR"/>
+ <result column="email" property="email" jdbcType="VARCHAR"/>
+ <result column="user_name" property="userName" jdbcType="VARCHAR"/>
+ <result column="nick_name" property="nickName" jdbcType="VARCHAR"/>
+ <result column="user_pw" property="password" jdbcType="VARCHAR"/>
+ <result column="authority" property="authority" jdbcType="VARCHAR"/>
+ <result column="enable" property="enable" jdbcType="CHAR"/>
+ <result column="locked" property="locked" jdbcType="CHAR"/>
+</resultMap>
+
+<select id="getUserByName" parameterType="java.lang.String" resultMap="resultUser">
+
+SELECT
+	u.description,
+	u.email,
+	u.user_name,
+	u.nick_name,
+	u.user_pw,
+    u.enable,
+    u.locked,
+	a.authority
+FROM
+	t_users u
+LEFT JOIN t_authoritie a ON u.user_name = a.user_name
+WHERE
+	u.user_name =#{userName}
+
+</select>
+
+</mapper>
