@@ -13,6 +13,10 @@
  <result column="authority" property="authority" jdbcType="VARCHAR"/>
  <result column="enable" property="enable" jdbcType="CHAR"/>
  <result column="locked" property="locked" jdbcType="CHAR"/>
+ <!-- attempts -->
+ <result column="last_attempts_time" property="lastAttemptsTime" jdbcType="DATETIME"/>
+ <result column="error_attempts_num" property="errorAttemptsNum" jdbcType="INT"/>
+ 
 </resultMap>
 
 <select id="getUserByName" parameterType="java.lang.String" resultMap="resultUser">
@@ -25,10 +29,13 @@ SELECT
 	u.user_pw,
     u.enable,
     u.locked,
-	a.authority
+	a.authority,
+  p.last_attempts_time,
+  p.error_attempts_num
 FROM
 	t_users u
 LEFT JOIN t_authoritie a ON u.user_name = a.user_name
+LEFT JOIN t_users_attempts p ON p.user_name = u.user_name
 WHERE
 	u.user_name =#{userName}
 

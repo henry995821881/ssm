@@ -1,6 +1,7 @@
 package com.henry.jrt.bean;
 
 import java.io.Serializable;
+import java.util.Date;
 
 public class UserInfo implements Serializable{
 
@@ -18,7 +19,7 @@ public class UserInfo implements Serializable{
 	public void setVaild(boolean isVaild) {
 		this.isVaild = isVaild;
 	}
-	private String desc;
+	 private String desc;
 	 private String email;
 	 private String userName;
 	 private String nickName;
@@ -26,6 +27,26 @@ public class UserInfo implements Serializable{
 	 private String authority;
 	 private String enable;
 	 private String locked;
+	 
+	 //attempts
+	 private int errorAttemptsNum ;
+	 private Date lastAttemptsTime;
+	 
+	 
+	 
+	 
+	 public int getErrorAttemptsNum() {
+		return errorAttemptsNum;
+	}
+	public void setErrorAttemptsNum(int errorAttemptsNum) {
+		this.errorAttemptsNum = errorAttemptsNum;
+	}
+	public Date getLastAttemptsTime() {
+		return lastAttemptsTime;
+	}
+	public void setLastAttemptsTime(Date lastAttemptsTime) {
+		this.lastAttemptsTime = lastAttemptsTime;
+	}
 	 
 	public String getDesc() {
 		return desc;
