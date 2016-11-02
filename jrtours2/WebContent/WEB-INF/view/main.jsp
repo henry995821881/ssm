@@ -11,8 +11,9 @@
 
 main
 		
-	
-	<script type="text/javascript" src="resources/js/main.js"></script>
+	<br>
+	<h1>${msg}</h1>
+	<script type="text/javascript" src="<c:url value='resources/js/main.js' />"></script>
 </body>
 
 </html>
