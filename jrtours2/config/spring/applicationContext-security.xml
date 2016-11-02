@@ -29,7 +29,7 @@
 	<http auto-config="false" entry-point-ref="loginEntryPoint"
 		use-expressions="true">
 
-         <!-- login 已经login含义参数 是允许访问 -->
+         <!-- login 以及login含义参数 是允许访问 -->
 		<intercept-url pattern="/login*" access="permitAll" />
 	   <!-- 所有都需要认证身份 -->
 		<intercept-url pattern="/**" access="isAuthenticated()" />

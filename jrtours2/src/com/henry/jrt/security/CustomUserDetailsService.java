@@ -37,15 +37,18 @@ public class CustomUserDetailsService implements UserDetailsService {
 		 * credentialsNonExpired = true; boolean accountNonLocked = true;
 		 * List<GrantedAuthority> auth = new ArrayList<GrantedAuthority>();
 		 */
-  
+		
+		
+		     boolean accountNonExpired = true;
+		     boolean credentialsNonExpired = true;
 		    //账号失效
 		   boolean enable =  userInfo.getEnable().equals("1")? true:false;
 		   //账号锁定
 		   boolean accountNonLocked = userInfo.getLocked().equals("0")? true:false;
 		   
 		   //
-		CustomUserDetails user = new CustomUserDetails(userInfo.getUserName(), userInfo.getPassword(), enable, true,
-				true, accountNonLocked, new ArrayList<GrantedAuthority>());
+		CustomUserDetails user = new CustomUserDetails(userInfo.getUserName(), userInfo.getPassword(), enable, accountNonExpired,
+				credentialsNonExpired, accountNonLocked, new ArrayList<GrantedAuthority>());
 		
 		///////
 		user.setUserInfo(userInfo);
