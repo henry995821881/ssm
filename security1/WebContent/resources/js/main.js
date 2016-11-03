@@ -1,0 +1,7 @@
+
+alert("jdfsdf")
+function check(){
+	
+	
+	
+}

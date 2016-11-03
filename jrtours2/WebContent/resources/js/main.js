@@ -1,7 +1,0 @@
-
-alert("js")
-function check(){
-	
-	
-	
-}
