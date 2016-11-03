@@ -3,7 +3,7 @@
 
 <mapper namespace="com.henry.jrt.mapper.UserMapper">
 
-	<resultMap type="com.henry.jrt.bean.UserInfo" id="resultUser">
+	<resultMap type="com.henry.jrt.bean.UserInfo" id="UserInfo">
 
 		<result column="description" property="desc" jdbcType="VARCHAR" />
 		<result column="email" property="email" jdbcType="VARCHAR" />
@@ -13,6 +13,7 @@
 		<result column="authority" property="authority" jdbcType="VARCHAR" />
 		<result column="enable" property="enable" jdbcType="CHAR" />
 		<result column="locked" property="locked" jdbcType="CHAR" />
+		<result column="create_time" property="createTime" jdbcType="DATE" />
 		<!-- attempts -->
 		<result column="last_attempts_time" property="lastAttemptsTime"
 			jdbcType="DATE" />
@@ -20,14 +21,62 @@
 			jdbcType="INTEGER" />
 
 	</resultMap>
+	<insert id="insertAuthority">
+
+		insert into t_authoritie(user_name,authority)values(
+		#{userInfo.userName},
+		57
+		)
+	</insert>
+	<insert id="insertAttempts">
+		insert into
+		t_users_attempts(user_name,last_attempts_time,error_attempts_num)values(
+		#{userInfo.userName},
+		NOW(),
+		0
+		)
+
+	</insert>
+
+	<insert id="registerUser">
+		insert into
+		t_users(user_name,user_pw,nick_name,email,description,create_time)VALUES(
+		#{userInfo.userName},
+		#{userInfo.password},
+		#{userInfo.nickName},
+		#{userInfo.email},
+		#{userInfo.desc},
+		NOW()
+		)
+
+	</insert>
+
+	<select id="checkUserIsExist" resultType="java.lang.String" parameterType="java.lang.String">
+
+		SELECT
+		IF (
+		(
+		SELECT
+		t.user_name
+		FROM
+		t_users t
+		WHERE
+		t.user_name = #{userName}
+		),
+		'1',
+		'0'
+		)
+	</select>
 
 	<update id="updateUserAttemptsErrors">
 
 		UPDATE t_users_attempts t
-		SET t.last_attempts_time = now(),
+		SET t.last_attempts_time =
+		now(),
 		t.error_attempts_num = t.error_attempts_num + 1
 		WHERE
-		t.user_name =#{userName}
+		t.user_name
+		=#{userName}
 	</update>
 
 	<update id="updateUserAttempts" parameterType="java.lang.String">
@@ -44,7 +93,7 @@
 	</update>
 
 	<select id="getUserByName" parameterType="java.lang.String"
-		resultMap="resultUser">
+		resultMap="UserInfo">
 
 		SELECT
 		u.description,
@@ -54,14 +103,17 @@
 		u.user_pw,
 		u.enable,
 		u.locked,
+		u.create_time,
 		a.authority,
 		p.last_attempts_time,
 		p.error_attempts_num
 		FROM
 		t_users u
-		LEFT JOIN t_authoritie a ON
+		LEFT JOIN
+		t_authoritie a ON
 		u.user_name = a.user_name
-		LEFT JOIN t_users_attempts p ON p.user_name =
+		LEFT JOIN t_users_attempts p
+		ON p.user_name =
 		u.user_name
 		WHERE
 		u.user_name =#{userName}

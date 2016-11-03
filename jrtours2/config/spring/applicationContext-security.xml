@@ -12,7 +12,10 @@
 		http://www.springframework.org/schema/security	http://www.springframework.org/schema/security/spring-security-3.1.xsd
 		">
 
-	<http pattern="/resources/**" security="none" /> 
+	<http pattern="/resources/**" security="none" />
+	<http pattern="/register" security="none" />
+	<http pattern="/checkRegister" security="none" />
+	
 
 	<!-- <http pattern="/main.jsp*" security="none" /> <http pattern="/login.jsp*" 
 		security="none" /> -->
@@ -29,9 +32,9 @@
 	<http auto-config="false" entry-point-ref="loginEntryPoint"
 		use-expressions="true">
 
-         <!-- login 以及login含义参数 是允许访问 -->
+		<!-- login 以及login含义参数 是允许访问 -->
 		<intercept-url pattern="/login*" access="permitAll" />
-	   <!-- 所有都需要认证身份 -->
+		<!-- 所有都需要认证身份 -->
 		<intercept-url pattern="/**" access="isAuthenticated()" />
 
 
@@ -129,7 +132,7 @@
 				<beans:bean id="securityContextLogoutHandler"
 					class="org.springframework.security.web.authentication.logout.SecurityContextLogoutHandler" />
 
-                 <!-- 自定义handler -->
+				<!-- 自定义handler -->
 				<beans:bean id="customLogoutSuccessHandler"
 					class="com.henry.jrt.security.CustomLogoutHandler" />
 			</beans:array>

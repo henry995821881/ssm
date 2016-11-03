@@ -8,13 +8,14 @@
 <title>Insert title here</title>
 
 <style type="text/css">
-.error{
- color: red;
+.error {
+	color: red;
 }
+.msg{color: green;}
 </style>
 </head>
 <body>
-	<h1>Spring Security</h1>
+	<h6>Spring Security</h6>
 
 	<div id="login-box">
 
@@ -39,6 +40,7 @@
 				<tr>
 					<td colspan='2'><input name="submit" type="submit"
 						value="submit" /></td>
+					<td><a href="<c:url value='register' />">register</a></td>
 				</tr>
 			</table>
 

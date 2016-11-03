@@ -29,6 +29,7 @@ public class CustomLoginFilter extends UsernamePasswordAuthenticationFilter {
         String username = obtainUsername(request);
         String password = obtainPassword(request);
         
+        //md5加密 数据库保存的是md5的密码
         if(!StringUtils.isEmpty(password)){
         	
         	password = MD5Util.MD5(password);

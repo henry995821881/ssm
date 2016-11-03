@@ -13,4 +13,12 @@ public interface UserMapper {
 	
 	public void updateUserAttempts(@Param("userName") String userName);
 	public void updateUserAttemptsErrors(@Param("userName") String userName);
+
+	public String checkUserIsExist(@Param("userName") String userName);
+
+	public void registerUser(@Param("userInfo") UserInfo userInfo);
+
+	public void insertAttempts(@Param("userInfo") UserInfo userInfo);
+
+	public void insertAuthority(@Param("userInfo") UserInfo userInfo);
 }

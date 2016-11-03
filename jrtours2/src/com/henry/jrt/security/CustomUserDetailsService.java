@@ -2,7 +2,6 @@ package com.henry.jrt.security;
 
 import java.util.ArrayList;
 
-import org.apache.jasper.tagplugins.jstl.core.If;
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.GrantedAuthority;

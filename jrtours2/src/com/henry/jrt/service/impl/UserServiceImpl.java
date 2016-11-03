@@ -5,6 +5,7 @@ import org.springframework.stereotype.Service;
 
 
 import com.henry.jrt.bean.UserInfo;
+import com.henry.jrt.common.MD5Util;
 import com.henry.jrt.mapper.UserMapper;
 import com.henry.jrt.service.UserService;
 
@@ -31,6 +32,23 @@ public class UserServiceImpl implements UserService {
 	@Override
 	public void updateUserAttemptsErrors(String userName) {
 		userMapper.updateUserAttemptsErrors(userName);
+		
+	}
+
+	@Override
+	public String checkUserIsExist(String username) {
+		
+		return userMapper.checkUserIsExist(username);
+	}
+
+	@Override
+	public UserInfo register(UserInfo userInfo) {
+	
+		userInfo.setPassword(MD5Util.MD5(userInfo.getPassword()));
+		userMapper.registerUser(userInfo);
+		userMapper.insertAttempts(userInfo);
+		userMapper.insertAuthority(userInfo);
+		return userMapper.getUserByName(userInfo.getUserName());
 		
 	}
 	

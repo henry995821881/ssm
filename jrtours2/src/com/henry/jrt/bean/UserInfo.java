@@ -24,6 +24,7 @@ public class UserInfo implements Serializable{
 	 private String userName;
 	 private String nickName;
 	 private String password;
+	 private Date createTime;
 	 private String authority;
 	 private String enable;
 	 private String locked;
@@ -95,6 +96,12 @@ public class UserInfo implements Serializable{
 	}
 	public void setLocked(String locked) {
 		this.locked = locked;
+	}
+	public Date getCreateTime() {
+		return createTime;
+	}
+	public void setCreateTime(Date createTime) {
+		this.createTime = createTime;
 	}
 
 	 
