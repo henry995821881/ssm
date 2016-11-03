@@ -44,10 +44,12 @@ public class DaoCustomAuthenticationProvider extends DaoAuthenticationProvider{
 		//authentication.getPrincipal()     user_name
 		//authentication.getCredentials()   user_pw
 		Object credentials =  authentication.getCredentials();
+		/*
+		 * 
 		if(credentials ==null ||"".equals((String)credentials)){
 			
 			throw new PasswordErrorException(" password is empty");
-		}
+		}*/
 		
            	
 	

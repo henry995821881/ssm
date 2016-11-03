@@ -1,6 +1,10 @@
 package com.henry.jrt.controller;
 
+import java.io.IOException;
+
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.authentication.DisabledException;
@@ -13,8 +17,11 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.henry.jrt.Exception.PasswordErrorException;
+import com.henry.jrt.Exception.RandomCodeErrorException;
 import com.henry.jrt.Exception.UserNotFoundException;
 import com.henry.jrt.bean.UserInfo;
+import com.henry.jrt.common.RandomCode;
+import com.henry.jrt.common.StringUtils;
 import com.henry.jrt.service.UserService;
 
 @Controller
@@ -53,6 +60,22 @@ public class UserController {
 		return model;
 
 	}
+	//request image
+	@RequestMapping("/randomcode")
+	public void randomCode( HttpServletRequest request,HttpServletResponse response){
+		
+		HttpSession session = request.getSession();
+		
+		String code="";
+		try {
+		 code =	RandomCode.getCodeAndSentImage(request, response);
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		//保存到session
+		session.setAttribute("randomCode", code);
+	}
 
 	@RequestMapping("/main")
 	public String main(Model model) {
@@ -69,17 +92,37 @@ public class UserController {
 	}
 
 	@RequestMapping("/checkRegister")
-	public String checkRegister( Model model,UserInfo userInfo) {
+	public String checkRegister( Model model,UserInfo userInfo,HttpServletRequest request, String randomCode) {
 
+		 //验证码
+
+        String sysRandomCode = (String)request.getSession().getAttribute("randomCode");
+        if("".equals(randomCode)|| randomCode ==null || !randomCode.equalsIgnoreCase(sysRandomCode)){
+        	
+        	model.addAttribute("error", "randomCode is error");
+        	
+        	return "register";
+        }
+		
+		
 		
 		String isExist =userService.checkUserIsExist(userInfo.getUserName());
 		
 		if("1".equals(isExist)){
 			model.addAttribute("error", "username is exist");
 		}else {
+			
+			if(!checkUser(userInfo,model)){
+				
+				
+				return "register";
+			}
+			
+			
 			UserInfo newUser = userService.register(userInfo);
 			//
 			if(newUser !=null){
+				
 				model.addAttribute("msg", "register ok");
 				
 			}else{
@@ -90,6 +133,27 @@ public class UserController {
 		
 		
 		return "register";
+	}
+
+	
+	private boolean checkUser(UserInfo userInfo, Model model) {
+		
+		if(StringUtils.isEmpty(userInfo.getUserName()) ){
+			
+			model.addAttribute("error", "username is empty");
+			return false;
+			
+		}
+		
+             if(StringUtils.isEmpty(userInfo.getPassword()) ){
+			
+			model.addAttribute("error", "password is empty");
+			return false;
+			
+		}
+		
+		
+		return true;
 	}
 
 	private String getErrorMessage(HttpServletRequest request, String key) {
@@ -103,7 +167,9 @@ public class UserController {
 			error = exception.getMessage();
 		} else if (exception instanceof LockedException) {
 			error = exception.getMessage();
-		} else {
+		}else if (exception instanceof RandomCodeErrorException) {
+			error = exception.getMessage();
+		}else {
 			error = "Invalid username and password!";
 		}
 

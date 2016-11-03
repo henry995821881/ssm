@@ -11,7 +11,10 @@
 .error {
 	color: red;
 }
-.msg{color: green;}
+
+.msg {
+	color: green;
+}
 </style>
 </head>
 <body>
@@ -37,6 +40,16 @@
 					<td><input type='password' name='password' /></td>
 				</tr>
 
+				<tr>
+					<td><img alt="code" src="<c:url value='randomcode' />">
+					</td>
+					<td><a href="<c:url value='login' />">change image</a></td>
+				</tr>
+				<tr>
+					<td>randomCode:
+					</td>
+					<td><input type='text' name='randomCode' /></td>
+				</tr>
 				<tr>
 					<td colspan='2'><input name="submit" type="submit"
 						value="submit" /></td>

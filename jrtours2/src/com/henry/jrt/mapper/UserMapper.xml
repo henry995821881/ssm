@@ -22,6 +22,7 @@
 			jdbcType="INTEGER" />
 
 	</resultMap>
+	<!-- 默认权限57 -->
 	<insert id="insertAuthority">
 
 		insert into t_authoritie(user_name,authority)values(

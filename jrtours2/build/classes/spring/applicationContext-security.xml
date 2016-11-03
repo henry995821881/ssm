@@ -15,6 +15,7 @@
 	<http pattern="/resources/**" security="none" />
 	<http pattern="/register" security="none" />
 	<http pattern="/checkRegister" security="none" />
+	<http pattern="/randomcode" security="none" />
 	
 
 	<!-- <http pattern="/main.jsp*" security="none" /> <http pattern="/login.jsp*" 

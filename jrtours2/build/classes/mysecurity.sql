@@ -10,7 +10,7 @@ Target Server Type    : MYSQL
 Target Server Version : 50022
 File Encoding         : 65001
 
-Date: 2016-11-03 14:48:41
+Date: 2016-11-03 17:13:56
 */
 
 SET FOREIGN_KEY_CHECKS=0;
@@ -30,7 +30,9 @@ CREATE TABLE `t_authoritie` (
 -- ----------------------------
 INSERT INTO `t_authoritie` VALUES ('0001', '57');
 INSERT INTO `t_authoritie` VALUES ('0002', '57');
+INSERT INTO `t_authoritie` VALUES ('0003', '57');
 INSERT INTO `t_authoritie` VALUES ('0006', '58');
+INSERT INTO `t_authoritie` VALUES ('0007', '57');
 
 -- ----------------------------
 -- Table structure for t_users
@@ -38,7 +40,7 @@ INSERT INTO `t_authoritie` VALUES ('0006', '58');
 DROP TABLE IF EXISTS `t_users`;
 CREATE TABLE `t_users` (
   `user_name` varchar(10) NOT NULL,
-  `user_pw` varchar(128) NOT NULL,
+  `user_pw` varchar(64) NOT NULL,
   `nick_name` varchar(50) default NULL,
   `enable` char(1) default '1',
   `locked` char(1) default '0',
@@ -54,6 +56,8 @@ CREATE TABLE `t_users` (
 INSERT INTO `t_users` VALUES ('0006', '420A8475AF494EBB05522FDC0BAA5A85', 'sdfsdf', '1', '0', 'efsdf', 'sdfsdf', '2016-11-03 14:19:52', '202DCFAC4A4732AD899674B386024F1A');
 INSERT INTO `t_users` VALUES ('0001', '384E8A7F5B408FCA82A7F894710B7BA2', 'sadasd', '1', '0', 'qwewqe', 'dsfsdf', '2016-11-03 14:38:35', 'B8740594E256D8124150E09F99ABFF3F');
 INSERT INTO `t_users` VALUES ('0002', 'D5801C04AD871BFABD3C8C7CE1433E91', 'ewrer', '1', '0', 'werwere', 'dfsdf', '2016-11-03 14:39:05', '0BAB80403E52C0A2163776A49CA88512');
+INSERT INTO `t_users` VALUES ('0003', '4AF8B58132264B5CB5C93DECB75815F3', 'henry', '1', '0', '163@', 'good', '2016-11-03 15:50:58', '9CF72630CF062433CD0D80AD46FB89CE');
+INSERT INTO `t_users` VALUES ('0007', '48CD99734DAB6FDCCD0B0BAC8DAE890B', '', '1', '0', '', '', '2016-11-03 17:12:59', '6D1CBA6419A9B5C5CCF1AA74819F53BE');
 
 -- ----------------------------
 -- Table structure for t_users_attempts
@@ -71,3 +75,5 @@ CREATE TABLE `t_users_attempts` (
 INSERT INTO `t_users_attempts` VALUES ('0006', '2016-11-03 14:46:28', '2');
 INSERT INTO `t_users_attempts` VALUES ('0001', '2016-11-03 14:46:41', '1');
 INSERT INTO `t_users_attempts` VALUES ('0002', '2016-11-03 14:39:05', '0');
+INSERT INTO `t_users_attempts` VALUES ('0003', '2016-11-03 15:50:58', '0');
+INSERT INTO `t_users_attempts` VALUES ('0007', '2016-11-03 17:12:59', '0');

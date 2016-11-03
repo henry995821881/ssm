@@ -1,6 +1,6 @@
 package com.henry.jrt.bean;
 
-import java.io.Serializable;
+
 import java.util.Collection;
 
 import org.springframework.security.core.GrantedAuthority;

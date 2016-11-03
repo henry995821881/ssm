@@ -55,6 +55,17 @@
 					<td>desc:</td>
 					<td><input type='text' name='desc' /></td>
 				</tr>
+				
+				<tr>
+					<td><img alt="code" src="<c:url value='randomcode' />">
+					</td>
+					<td><a href="<c:url value='register' />">change image</a></td>
+				</tr>
+				<tr>
+					<td>randomCode:
+					</td>
+					<td><input type='text' name='randomCode' /></td>
+				</tr>
 				<tr>
 					<td colspan='2'><input name="submit" type="submit"
 						value="submit" /></td>

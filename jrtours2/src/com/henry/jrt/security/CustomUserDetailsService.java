@@ -34,9 +34,7 @@ public class CustomUserDetailsService implements UserDetailsService {
 			userInfo.setLocked("1");
 		}
                       
-		Logger logger = Logger.getLogger(CustomUserDetailsService.class);
 		
-		logger.debug("loadUserByUsername --->");
 		// valid
 
 		/*

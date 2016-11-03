@@ -12,13 +12,7 @@ public class UserInfo implements Serializable{
 	 * 
 	 */
 	private static final long serialVersionUID = 1L;
-	private boolean isVaild ;
-	public boolean isVaild() {
-		return isVaild;
-	}
-	public void setVaild(boolean isVaild) {
-		this.isVaild = isVaild;
-	}
+	
 	 private String desc;
 	 private String email;
 	 private String userName;
