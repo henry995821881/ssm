@@ -24,7 +24,16 @@ public class CustomUserDetailsService implements UserDetailsService {
 	@Override
 	public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
 
+		//update user_attempts first 如果超过1天重置错误次数清零
+		userService.updateUserAttempts(username);
+		//get userinfo
 		UserInfo userInfo = userService.getUserByName(username);
+		
+		//错误大于3次锁定
+		if(userInfo.getErrorAttemptsNum()>=3) {
+			
+			userInfo.setLocked("1");
+		}
                       
 		Logger logger = Logger.getLogger(CustomUserDetailsService.class);
 		
@@ -36,7 +45,8 @@ public class CustomUserDetailsService implements UserDetailsService {
 		 * credentialsNonExpired = true; boolean accountNonLocked = true;
 		 * List<GrantedAuthority> auth = new ArrayList<GrantedAuthority>();
 		 */
-		
+	
+		  
 		
 		     boolean accountNonExpired = true;
 		     boolean credentialsNonExpired = true;

@@ -1,6 +1,7 @@
 package com.henry.jrt.security;
 
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.authentication.dao.DaoAuthenticationProvider;
 import org.springframework.security.core.AuthenticationException;
@@ -10,11 +11,15 @@ import com.henry.jrt.Exception.PasswordErrorException;
 import com.henry.jrt.Exception.UserNotFoundException;
 import com.henry.jrt.bean.CustomUserDetails;
 import com.henry.jrt.bean.UserInfo;
+import com.henry.jrt.service.UserService;
 
 
 
 
 public class DaoCustomAuthenticationProvider extends DaoAuthenticationProvider{
+	
+	@Autowired
+	private UserService userService;
 	
 	//第二次验证
 	@Override
@@ -47,7 +52,12 @@ public class DaoCustomAuthenticationProvider extends DaoAuthenticationProvider{
 	
 		if(!credentials.equals(userInfo.getPassword())){
 			
+			//密码错误insert or update user_attemps
+			userService.updateUserAttemptsErrors(customUser.getUsername());
+			
 			throw new PasswordErrorException("error password");
+			
+			
 		}
 		
 		

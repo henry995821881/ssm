@@ -20,4 +20,20 @@ public class UserServiceImpl implements UserService {
 		return userMapper.getUserByName(userName);
 	}
 
+	@Override
+	public void updateUserAttempts(String userName) {
+
+		
+		userMapper.updateUserAttempts(userName);
+		
+	}
+
+	@Override
+	public void updateUserAttemptsErrors(String userName) {
+		userMapper.updateUserAttemptsErrors(userName);
+		
+	}
+	
+	
+
 }

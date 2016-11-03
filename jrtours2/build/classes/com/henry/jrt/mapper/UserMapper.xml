@@ -21,6 +21,28 @@
 
 	</resultMap>
 
+	<update id="updateUserAttemptsErrors">
+
+		UPDATE t_users_attempts t
+		SET t.last_attempts_time = now(),
+		t.error_attempts_num = t.error_attempts_num + 1
+		WHERE
+		t.user_name =#{userName}
+	</update>
+
+	<update id="updateUserAttempts" parameterType="java.lang.String">
+
+		UPDATE
+		t_users_attempts t
+		SET t.last_attempts_time = NOW(),
+		t.error_attempts_num =0
+		WHERE
+		t.user_name =#{userName}
+		AND
+		DATE_FORMAT(NOW(),'%Y%m%d') >
+		DATE_FORMAT(t.last_attempts_time,'%Y%m%d')
+	</update>
+
 	<select id="getUserByName" parameterType="java.lang.String"
 		resultMap="resultUser">
 
@@ -37,8 +59,10 @@
 		p.error_attempts_num
 		FROM
 		t_users u
-		LEFT JOIN t_authoritie a ON u.user_name = a.user_name
-		LEFT JOIN t_users_attempts p ON p.user_name = u.user_name
+		LEFT JOIN t_authoritie a ON
+		u.user_name = a.user_name
+		LEFT JOIN t_users_attempts p ON p.user_name =
+		u.user_name
 		WHERE
 		u.user_name =#{userName}
 

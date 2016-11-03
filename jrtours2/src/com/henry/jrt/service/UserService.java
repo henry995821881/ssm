@@ -7,4 +7,6 @@ public interface UserService {
 
 	
 	public UserInfo getUserByName(String userName);
+	public void updateUserAttempts(String userName);
+	public void updateUserAttemptsErrors(String userName);
 }
