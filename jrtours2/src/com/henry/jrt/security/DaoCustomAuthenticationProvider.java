@@ -4,7 +4,7 @@ package com.henry.jrt.security;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.authentication.dao.DaoAuthenticationProvider;
-import org.springframework.security.authentication.encoding.Md5PasswordEncoder;
+
 import org.springframework.security.core.AuthenticationException;
 import org.springframework.security.core.userdetails.UserDetails;
 
@@ -12,7 +12,7 @@ import com.henry.jrt.Exception.PasswordErrorException;
 import com.henry.jrt.Exception.UserNotFoundException;
 import com.henry.jrt.bean.CustomUserDetails;
 import com.henry.jrt.bean.UserInfo;
-import com.henry.jrt.common.MD5Util;
+
 import com.henry.jrt.service.UserService;
 
 

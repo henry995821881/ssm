@@ -2,7 +2,7 @@ package com.henry.jrt.security;
 
 import java.util.ArrayList;
 
-import org.apache.log4j.Logger;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
