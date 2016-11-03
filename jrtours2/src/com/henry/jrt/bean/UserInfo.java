@@ -28,6 +28,7 @@ public class UserInfo implements Serializable{
 	 private String authority;
 	 private String enable;
 	 private String locked;
+	 private String salt;
 	 
 	 //attempts
 	 private int errorAttemptsNum ;
@@ -102,6 +103,12 @@ public class UserInfo implements Serializable{
 	}
 	public void setCreateTime(Date createTime) {
 		this.createTime = createTime;
+	}
+	public String getSalt() {
+		return salt;
+	}
+	public void setSalt(String salt) {
+		this.salt = salt;
 	}
 
 	 

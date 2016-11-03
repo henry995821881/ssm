@@ -14,6 +14,7 @@
 		<result column="enable" property="enable" jdbcType="CHAR" />
 		<result column="locked" property="locked" jdbcType="CHAR" />
 		<result column="create_time" property="createTime" jdbcType="DATE" />
+		<result column="salt" property="salt" jdbcType="VARCHAR" />
 		<!-- attempts -->
 		<result column="last_attempts_time" property="lastAttemptsTime"
 			jdbcType="DATE" />
@@ -40,18 +41,20 @@
 
 	<insert id="registerUser">
 		insert into
-		t_users(user_name,user_pw,nick_name,email,description,create_time)VALUES(
+		t_users(user_name,user_pw,nick_name,email,description,create_time,salt)VALUES(
 		#{userInfo.userName},
 		#{userInfo.password},
 		#{userInfo.nickName},
 		#{userInfo.email},
 		#{userInfo.desc},
-		NOW()
+		NOW(),
+		#{userInfo.salt}
 		)
 
 	</insert>
 
-	<select id="checkUserIsExist" resultType="java.lang.String" parameterType="java.lang.String">
+	<select id="checkUserIsExist" resultType="java.lang.String"
+		parameterType="java.lang.String">
 
 		SELECT
 		IF (
@@ -104,6 +107,7 @@
 		u.enable,
 		u.locked,
 		u.create_time,
+		u.salt,
 		a.authority,
 		p.last_attempts_time,
 		p.error_attempts_num

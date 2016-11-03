@@ -1,5 +1,9 @@
 package com.henry.jrt.service.impl;
 
+import java.util.Random;
+
+import javax.management.StringValueExp;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -44,7 +48,11 @@ public class UserServiceImpl implements UserService {
 	@Override
 	public UserInfo register(UserInfo userInfo) {
 	
-		userInfo.setPassword(MD5Util.MD5(userInfo.getPassword()));
+		//系统时间 的MD5作为salt
+		String salt =MD5Util.MD5(String.valueOf(System.currentTimeMillis()));
+		//明文密码加salt MD5 
+		userInfo.setPassword(MD5Util.MD5(userInfo.getPassword()+salt));
+		userInfo.setSalt(salt);
 		userMapper.registerUser(userInfo);
 		userMapper.insertAttempts(userInfo);
 		userMapper.insertAuthority(userInfo);

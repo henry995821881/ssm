@@ -3,20 +3,25 @@ package com.henry.jrt.security;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.AuthenticationException;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 
-
+import com.henry.jrt.Exception.UserNotFoundException;
 import com.henry.jrt.common.MD5Util;
 import com.henry.jrt.common.StringUtils;
+import com.henry.jrt.service.UserService;
 
 public class CustomLoginFilter extends UsernamePasswordAuthenticationFilter {
 
 	
 	
-
+	@Autowired
+	private UserService userService;
+	
+	
     public Authentication attemptAuthentication(HttpServletRequest request,
             HttpServletResponse response) throws AuthenticationException {
 
@@ -29,13 +34,13 @@ public class CustomLoginFilter extends UsernamePasswordAuthenticationFilter {
         String username = obtainUsername(request);
         String password = obtainPassword(request);
         
-        //md5加密 数据库保存的是md5的密码
-        if(!StringUtils.isEmpty(password)){
-        	
-        	password = MD5Util.MD5(password);
+        if(username ==null || "".equals(username)){
+        	throw new UserNotFoundException("username is empty");
         }
-       
+        
+        String salt = userService.getUserByName(username).getSalt();
 
+        password = MD5Util.MD5(password+salt);
         //可以使用继承对token扩展
         UsernamePasswordAuthenticationToken authRequest = new UsernamePasswordAuthenticationToken(
         		username, password);
