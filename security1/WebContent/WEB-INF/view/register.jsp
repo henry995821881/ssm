@@ -23,7 +23,7 @@
 
 
 
-	<h6>register2:${u }</h6>
+	<h6>register2</h6>
 	
 	
 	<div id="login-box">
@@ -36,7 +36,7 @@
 			<div class="msg">${msg}</div>
 			
 		</c:if>
-		<form:form modelAttribute="userInfo" action="<c:url value='checkRegister' />" method="POST">
+		<form:form modelAttribute="userInfo"  action="<c:url value='checkRegister' />" method="POST">
 
 			<table>
 				<tr>
@@ -68,7 +68,8 @@
 				</tr>
 				<tr>
 					<td>randomCode:</td>
-					<td><form:input path="randomCode" /></td>
+					<td><input type="text" name="randomCode">
+					</td>
 				</tr>
 				<tr>
 					<td colspan='2'><input name="submit" type="submit"

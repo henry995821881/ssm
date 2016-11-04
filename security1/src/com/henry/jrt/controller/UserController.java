@@ -85,8 +85,9 @@ public class UserController {
 	}
 
 	@RequestMapping("/register")
-	public String register() {
+	public String register(Model model) {
 
+		model.addAttribute("userInfo", new UserInfo());
 		return "register";
 
 	}
@@ -95,8 +96,7 @@ public class UserController {
 	public String checkRegister( Model model,UserInfo userInfo,HttpServletRequest request, String randomCode) {
 
 		
-	
-		model.addAttribute("u", "ksdlf");
+		model.addAttribute("userInfo", new UserInfo());
 		
 		 //验证码
 
