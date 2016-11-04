@@ -2,8 +2,8 @@
 	pageEncoding="UTF-8"%>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
-<%@ taglib prefix="form" uri="http://www.springframework.org/tags/form"%>
-<%@ taglib prefix="s" uri="http://www.springframework.org/tags"%>
+<%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
+<%@ taglib prefix="s" uri="http://www.springframework.org/tags" %>
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
@@ -21,54 +21,52 @@
 </head>
 <body>
 
-
-
-	<h6>register2:${u }</h6>
 	
-	
+
+	<h6>register1</h6>
+
 	<div id="login-box">
 
 		<c:if test="${not empty error}">
 			<div class="error">${error}</div>
-		
 		</c:if>
 		<c:if test="${not empty msg}">
 			<div class="msg">${msg}</div>
-			
 		</c:if>
-		<form:form modelAttribute="userInfo" action="<c:url value='checkRegister' />" method="POST">
-
+		<form  action="<c:url value='checkRegister' />"
+			method='POST'>
 			<table>
 				<tr>
 					<td>User:</td>
-					<td><form:input path="userName" /></td>
+					<td><input type='text' name='userName' value=''></td>
 				</tr>
 				<tr>
 					<td>Password:</td>
-					<td><form:password path="password" /></td>
+					<td><input type="password" name='password' /></td>
 				</tr>
 
 				<tr>
 					<td>email:</td>
-					<td><form:input path="email" /></td>
+					<td><input type='text' name='email' /></td>
 				</tr>
 				<tr>
 					<td>nickName:</td>
-					<td><form:input path="nickName" /></td>
+					<td><input type='text' name='nickName' /></td>
 				</tr>
 				<tr>
 					<td>desc:</td>
-					<td><form:input path="desc" /></td>
+					<td><input type='text' name='desc' /></td>
 				</tr>
-
+				
 				<tr>
 					<td><img alt="code" src="<c:url value='randomcode' />">
 					</td>
 					<td><a href="<c:url value='register' />">change image</a></td>
 				</tr>
 				<tr>
-					<td>randomCode:</td>
-					<td><form:input path="randomCode" /></td>
+					<td>randomCode:
+					</td>
+					<td><input type='text' name='randomCode' /></td>
 				</tr>
 				<tr>
 					<td colspan='2'><input name="submit" type="submit"
@@ -76,7 +74,7 @@
 				</tr>
 			</table>
 
-		</form:form>
+		</form>
 	</div>
 </body>
 </html>

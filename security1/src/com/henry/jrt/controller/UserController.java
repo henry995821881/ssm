@@ -94,6 +94,10 @@ public class UserController {
 	@RequestMapping("/checkRegister")
 	public String checkRegister( Model model,UserInfo userInfo,HttpServletRequest request, String randomCode) {
 
+		
+	
+		model.addAttribute("u", "ksdlf");
+		
 		 //验证码
 
         String sysRandomCode = (String)request.getSession().getAttribute("randomCode");
