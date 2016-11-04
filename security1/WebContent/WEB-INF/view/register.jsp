@@ -22,19 +22,39 @@
 
 <script type="text/javascript"
 	src="<c:url value='resources/js/jquery/jquery-1.8.2.js'></c:url>"></script>
-	
-	<script type="text/javascript">
-	
-	
-	function btnSubmit(){
-		
+
+<script type="text/javascript">
+	function btnSubmit() {
+
 		//valid
+
+		var username = $("[name='userName']").val();
+		var password = $("[name='password']").val();
+		var email = $("[name='email']").val();
+
+		var regUser = /^[a-z0-9_-]{6,9}$/;
+		var regPassword = /^[a-z0-9_-]{6,18}$/;
+		var regEmail = /^[a-z\d]+(\.[a-z\d]+)*@([\da-z](-[\da-z])?)+(\.{1,2}[a-z]+)+$/;
+
+		if (!regUser.test(username)) {
+
+			alert("username is error");
+			return false;
+		}
+		if (!regPassword.test(password)) {
+			alert("password is error");
+			return false;
+		}
+		if (!regEmail.test(email)) {
+			alert("email is error");
+			return false;
+		}
+
 		//submit
 		$("#userInfoForm").submit();
-		
+
 	}
-	
-	</script>
+</script>
 </head>
 <body>
 
@@ -53,7 +73,8 @@
 			<div class="msg">${msg}</div>
 		</c:if>
 
-		<form:form id="userInfoForm" modelAttribute="userInfo" action="checkregister">
+		<form:form id="userInfoForm" modelAttribute="userInfo"
+			action="checkregister">
 			<table>
 				<tr>
 					<td>User:</td>
@@ -88,8 +109,9 @@
 				</tr>
 				<tr>
 					<td colspan='2'>
-						<button onclick="btnSubmit();">submit</button>
-						</td>
+						<button onclick="return btnSubmit();">submit</button>
+						<button type="reset">reset</button>
+					</td>
 				</tr>
 			</table>
 
