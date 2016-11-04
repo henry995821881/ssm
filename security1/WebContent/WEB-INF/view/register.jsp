@@ -31,10 +31,12 @@
 		var username = $("[name='userName']").val();
 		var password = $("[name='password']").val();
 		var email = $("[name='email']").val();
-
-		var regUser = /^[a-z0-9_-]{6,9}$/;
-		var regPassword = /^[a-z0-9_-]{6,18}$/;
-		var regEmail = /^[a-z\d]+(\.[a-z\d]+)*@([\da-z](-[\da-z])?)+(\.{1,2}[a-z]+)+$/;
+		var code = $("[name='randomCode']").val();
+		
+		var regCode = /^[a-zA-Z0-9]{4}$/;
+		var regUser = /^[a-zA-Z0-9_-]{6,9}$/;
+		var regPassword = /^[a-zA-Z0-9_-]{6,18}$/;
+		var regEmail = /^[a-zA-Z\d]+(\.[a-zA-Z\d]+)*@([\da-zA-Z](-[\da-zA-Z])?)+(\.{1,2}[a-zA-Z]+)+$/;
 
 		if (!regUser.test(username)) {
 
@@ -50,6 +52,14 @@
 			return false;
 		}
 
+		if(!regCode.test(code)){
+			
+			alert("randomCode is error");
+			return false;
+		}
+		
+		
+		
 		//submit
 		$("#userInfoForm").submit();
 
