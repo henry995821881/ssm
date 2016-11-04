@@ -10,7 +10,7 @@ Target Server Type    : MYSQL
 Target Server Version : 50022
 File Encoding         : 65001
 
-Date: 2016-11-03 17:13:56
+Date: 2016-11-04 17:38:22
 */
 
 SET FOREIGN_KEY_CHECKS=0;
@@ -29,10 +29,12 @@ CREATE TABLE `t_authoritie` (
 -- Records of t_authoritie
 -- ----------------------------
 INSERT INTO `t_authoritie` VALUES ('0001', '57');
-INSERT INTO `t_authoritie` VALUES ('0002', '57');
+INSERT INTO `t_authoritie` VALUES ('0002', '58');
 INSERT INTO `t_authoritie` VALUES ('0003', '57');
 INSERT INTO `t_authoritie` VALUES ('0006', '58');
 INSERT INTO `t_authoritie` VALUES ('0007', '57');
+INSERT INTO `t_authoritie` VALUES ('0008', '57');
+INSERT INTO `t_authoritie` VALUES ('0009', '57');
 
 -- ----------------------------
 -- Table structure for t_users
@@ -58,6 +60,8 @@ INSERT INTO `t_users` VALUES ('0001', '384E8A7F5B408FCA82A7F894710B7BA2', 'sadas
 INSERT INTO `t_users` VALUES ('0002', 'D5801C04AD871BFABD3C8C7CE1433E91', 'ewrer', '1', '0', 'werwere', 'dfsdf', '2016-11-03 14:39:05', '0BAB80403E52C0A2163776A49CA88512');
 INSERT INTO `t_users` VALUES ('0003', '4AF8B58132264B5CB5C93DECB75815F3', 'henry', '1', '0', '163@', 'good', '2016-11-03 15:50:58', '9CF72630CF062433CD0D80AD46FB89CE');
 INSERT INTO `t_users` VALUES ('0007', '48CD99734DAB6FDCCD0B0BAC8DAE890B', '', '1', '0', '', '', '2016-11-03 17:12:59', '6D1CBA6419A9B5C5CCF1AA74819F53BE');
+INSERT INTO `t_users` VALUES ('0008', '3A707CCFB2114EBF7316C19AEE440441', 'wqewqe', '1', '0', 'rfsesdf', 'dwqd', '2016-11-04 09:29:48', 'F30F3AD6406D5C74C77521D108589B61');
+INSERT INTO `t_users` VALUES ('0009', '30441082DF38219602B6F752F2820813', 'henry', '1', '0', '123@qq.com', 'bool', '2016-11-04 17:36:28', '4BFEE2D94FDC8E1DB5F63C1EFFB1D95E');
 
 -- ----------------------------
 -- Table structure for t_users_attempts
@@ -72,8 +76,10 @@ CREATE TABLE `t_users_attempts` (
 -- ----------------------------
 -- Records of t_users_attempts
 -- ----------------------------
-INSERT INTO `t_users_attempts` VALUES ('0006', '2016-11-03 14:46:28', '2');
-INSERT INTO `t_users_attempts` VALUES ('0001', '2016-11-03 14:46:41', '1');
+INSERT INTO `t_users_attempts` VALUES ('0006', '2016-11-04 09:09:55', '0');
+INSERT INTO `t_users_attempts` VALUES ('0001', '2016-11-04 09:10:18', '0');
 INSERT INTO `t_users_attempts` VALUES ('0002', '2016-11-03 14:39:05', '0');
 INSERT INTO `t_users_attempts` VALUES ('0003', '2016-11-03 15:50:58', '0');
 INSERT INTO `t_users_attempts` VALUES ('0007', '2016-11-03 17:12:59', '0');
+INSERT INTO `t_users_attempts` VALUES ('0008', '2016-11-04 09:29:48', '0');
+INSERT INTO `t_users_attempts` VALUES ('0009', '2016-11-04 17:36:28', '0');
