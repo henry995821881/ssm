@@ -92,11 +92,11 @@ public class UserController {
 
 	}
 
-	@RequestMapping("/checkRegister")
+	@RequestMapping("/checkregister")
 	public String checkRegister( Model model,UserInfo userInfo,HttpServletRequest request, String randomCode) {
 
 		
-		model.addAttribute("userInfo", new UserInfo());
+		model.addAttribute("userInfo", userInfo);
 		
 		 //验证码
 

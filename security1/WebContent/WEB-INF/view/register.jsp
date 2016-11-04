@@ -1,9 +1,9 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
-<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form"%>
 <%@ taglib prefix="s" uri="http://www.springframework.org/tags"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
@@ -23,21 +23,20 @@
 
 
 
-	<h6>register2</h6>
-	
-	
+	<h6>register</h6>
+
+
 	<div id="login-box">
 
 		<c:if test="${not empty error}">
 			<div class="error">${error}</div>
-		
+
 		</c:if>
 		<c:if test="${not empty msg}">
 			<div class="msg">${msg}</div>
-			
 		</c:if>
-		<form:form modelAttribute="userInfo"  action="<c:url value='checkRegister' />" method="POST">
 
+		<form:form modelAttribute="userInfo" action="checkregister">
 			<table>
 				<tr>
 					<td>User:</td>
@@ -68,8 +67,7 @@
 				</tr>
 				<tr>
 					<td>randomCode:</td>
-					<td><input type="text" name="randomCode">
-					</td>
+					<td><input type="text" name="randomCode"></td>
 				</tr>
 				<tr>
 					<td colspan='2'><input name="submit" type="submit"

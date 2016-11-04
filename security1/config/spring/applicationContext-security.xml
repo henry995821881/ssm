@@ -14,7 +14,7 @@
 
 	<http pattern="/resources/**" security="none" />
 	<http pattern="/register" security="none" />
-	<http pattern="/checkRegister" security="none" />
+	<http pattern="/checkregister" security="none" />
 	<http pattern="/randomcode" security="none" />
 	
 
