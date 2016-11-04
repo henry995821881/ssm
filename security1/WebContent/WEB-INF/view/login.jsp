@@ -16,6 +16,22 @@
 	color: green;
 }
 </style>
+
+<script type="text/javascript"
+	src="<c:url value='resources/js/jquery/jquery-1.8.2.js'></c:url>"></script>
+	
+	<script type="text/javascript">
+	
+	
+	function btnSubmit(){
+		
+		//valid
+		//submit
+		$("#loginForm").submit();
+		
+	}
+	
+	</script>
 </head>
 <body>
 	<h6>Spring Security</h6>
@@ -28,7 +44,7 @@
 		<c:if test="${not empty msg}">
 			<div class="msg">${msg}</div>
 		</c:if>
-		<form name='loginForm' action="<c:url value='checklogin' />"
+		<form  id="loginForm" name='loginForm' action="<c:url value='checklogin' />"
 			method='POST'>
 			<table>
 				<tr>
@@ -51,8 +67,10 @@
 					<td><input type='text' name='randomCode' /></td>
 				</tr>
 				<tr>
-					<td colspan='2'><input name="submit" type="submit"
-						value="submit" /></td>
+					<td colspan='2'>
+					<button onclick="btnSubmit();">submit</button>
+					
+						</td>
 					<td><a href="<c:url value='register' />">register</a></td>
 				</tr>
 			</table>

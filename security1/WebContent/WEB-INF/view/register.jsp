@@ -18,6 +18,23 @@
 	color: green;
 }
 </style>
+
+
+<script type="text/javascript"
+	src="<c:url value='resources/js/jquery/jquery-1.8.2.js'></c:url>"></script>
+	
+	<script type="text/javascript">
+	
+	
+	function btnSubmit(){
+		
+		//valid
+		//submit
+		$("#userInfoForm").submit();
+		
+	}
+	
+	</script>
 </head>
 <body>
 
@@ -36,7 +53,7 @@
 			<div class="msg">${msg}</div>
 		</c:if>
 
-		<form:form modelAttribute="userInfo" action="checkregister">
+		<form:form id="userInfoForm" modelAttribute="userInfo" action="checkregister">
 			<table>
 				<tr>
 					<td>User:</td>
@@ -70,8 +87,9 @@
 					<td><input type="text" name="randomCode"></td>
 				</tr>
 				<tr>
-					<td colspan='2'><input name="submit" type="submit"
-						value="submit" /></td>
+					<td colspan='2'>
+						<button onclick="btnSubmit();">submit</button>
+						</td>
 				</tr>
 			</table>
 
