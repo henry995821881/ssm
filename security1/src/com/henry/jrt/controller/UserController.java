@@ -22,6 +22,8 @@ import com.henry.jrt.Exception.UserNotFoundException;
 import com.henry.jrt.bean.UserInfo;
 import com.henry.jrt.common.RandomCode;
 import com.henry.jrt.common.StringUtils;
+import com.henry.jrt.common.mail.MailBean;
+import com.henry.jrt.common.mail.SpringMail;
 import com.henry.jrt.service.UserService;
 
 @Controller
@@ -114,10 +116,10 @@ public class UserController {
 		
 		if("1".equals(isExist)){
 			model.addAttribute("error", "username is exist");
-		}else {
+			return "register";
+		}
 			
 			if(!checkUser(userInfo,model)){
-				
 				
 				return "register";
 			}
@@ -125,18 +127,22 @@ public class UserController {
 			
 			UserInfo newUser = userService.register(userInfo);
 			//
-			if(newUser !=null){
-				
-				model.addAttribute("msg", "register ok");
-				
-			}else{
-				
+			if(newUser ==null){
 				model.addAttribute("msg", "register failed");
+				return "register";
 			}
-		}
 		
-		
-		return "register";
+			
+			//ok
+		model.addAttribute("msg", "register ok");
+		//can sent mail to user 
+	/*	MailBean mailBean = new MailBean();
+		mailBean.setToAddress(newUser.getEmail());
+		mailBean.setSubject("jjjj");
+		mailBean.setMailContent("welcome---->");
+		SpringMail.sentMail(mailBean);
+		*/
+		return "login";
 	}
 
 	
