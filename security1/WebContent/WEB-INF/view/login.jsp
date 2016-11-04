@@ -26,6 +26,31 @@
 	function btnSubmit(){
 		
 		//valid
+		
+		var username = $("[name='username']").val();
+		var password = $("[name='password']").val();
+		var code = $("[name='randomCode']").val();
+		
+		var regCode = /^[a-zA-Z0-9]{4}$/;
+		var regUser = /^[a-zA-Z0-9_-]{3,9}$/;
+		var regPassword = /^[a-zA-Z0-9_-]{3,18}$/;
+		
+		
+		if(!regUser.test(username)){
+			alert("username is error");
+			return false;
+		}
+		if(!regPassword.test(password)){
+			
+			alert("password is error");
+			return false;
+		}
+		if(!regCode.test(code)){
+			alert("random Code is error");
+			return false;
+			
+		}
+		
 		//submit
 		$("#loginForm").submit();
 		
@@ -68,7 +93,7 @@
 				</tr>
 				<tr>
 					<td colspan='2'>
-					<button onclick="btnSubmit();">submit</button>
+					<button onclick="return btnSubmit();">submit</button>
 					
 						</td>
 					<td><a href="<c:url value='register' />">register</a></td>

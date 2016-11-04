@@ -34,7 +34,7 @@
 		var code = $("[name='randomCode']").val();
 		
 		var regCode = /^[a-zA-Z0-9]{4}$/;
-		var regUser = /^[a-zA-Z0-9_-]{6,9}$/;
+		var regUser = /^[a-zA-Z0-9_-]{3,9}$/;
 		var regPassword = /^[a-zA-Z0-9_-]{3,18}$/;
 		var regEmail = /^[a-zA-Z\d]+(\.[a-zA-Z\d]+)*@([\da-zA-Z](-[\da-zA-Z])?)+(\.{1,2}[a-zA-Z]+)+$/;
 
